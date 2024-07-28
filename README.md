@@ -5,10 +5,10 @@ The classic game of চোর পুলিশ that Bangladeshis know.
 In singleplayer I've decided for the player to always get the police
 You are the purple box
 
-পুলিশ = Police
-চোর = Thief/Chor
-ডাকাত = Robber/Dakat
-বাবু = Head of the Police/Babu
+পুলিশ = Police,
+চোর = Thief/Chor,
+ডাকাত = Robber/Dakat,
+বাবু = Head of the Police/Babu,
 
 Everyone gets a box or what I call paper because in real life we play with paper.
 Everyone gets a role on their paper.

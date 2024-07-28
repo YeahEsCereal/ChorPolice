@@ -1,0 +1,76 @@
+* {
+    font-family: 'Cascadia Code', 'Arial', sans-serif;
+    transition: all 0.5s;
+}
+
+body {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    min-height: 90vh;
+}
+
+.page {
+    height: 25vh;
+    width: 25vw;
+    border-radius: 20px;
+    border: solid;
+    background-color: rgb(180, 204, 224);
+    border-color: rgb(156, 183, 193);
+    border-width: 10px;
+    font-weight: 900;
+    font-size: clamp(2vw, 5.5vw, 7vw);
+}
+
+button:hover {
+    filter: contrast(80%);
+}
+
+#p1 {
+    background-color: rgb(221, 180, 224);
+    border-color: rgb(193, 156, 193);
+}
+
+.end {
+    height: 9vh;
+    width: 53vw;
+    font-size: clamp(2vh, 4vh, 8vw);
+    text-align: center;
+    font-weight: 900;
+    background-color: rgb(180, 224, 191);
+    border: solid;
+    border-radius: 20px;
+    border-width: 10px;
+    border-color: rgb(156, 193, 159);
+}
+
+h1 {
+    text-align: center;
+    color: black;
+    width: 55vw;
+    /* font-size: 40px; */
+}
+
+h2 {
+    text-align: center;
+    color: black;
+    font-weight: 900;
+    font-size: 8vw;
+    width: 70vw;
+}
+
+p {
+    text-align: center;
+    color: black;
+    font-weight: 900;
+    font-size: 6vw;
+    width: 70vw;
+}
+
+#results {
+    background-color: rgb(242, 227, 14);
+    border-radius: 20px;
+    border: solid;
+    border-width: 10px;
+    border-color: rgb(192, 166, 19);
+}

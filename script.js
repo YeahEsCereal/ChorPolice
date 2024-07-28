@@ -1,0 +1,94 @@
+picked = false
+chorDakat = 'চোর'
+header = document.querySelector('#header')
+
+
+chorAmount = 600
+dakatAmount = 600
+policeAmount = 500
+babuAmount = 700
+
+resetDelay = 2000
+
+score1 = 0
+score2 = 0
+score3 = 0
+score4 = 0
+
+game()
+
+function game() {
+    document.querySelector('.papers').style.display = 'flex'
+    document.querySelector('#results').style.display = 'none'
+    if (picked == false) {
+        playersPapers = ['চোর', 'ডাকাত', 'বাবু'].sort(() => Math.random() - 0.5)
+        playersPapers.splice(0, 0, 'পুলিশ')
+        picked = true
+        b = document.querySelector(`#p1`)
+        setTimeout(() => {
+            b.style.backgroundColor = 'rgb(221, 190, 210)'
+            b.style.borderColor = 'rgb(193, 165, 180)'
+            setTimeout(() => {
+                b.innerHTML = playersPapers[0]
+                ba = (playersPapers.indexOf('বাবু') + 1)
+                cho = (playersPapers.indexOf('চোর') + 1)
+                da = (playersPapers.indexOf('ডাকাত') + 1)
+                babu = document.querySelector(`#p${(playersPapers.indexOf('বাবু') + 1).toString()}`)
+                eval(`score${(playersPapers.indexOf('বাবু') + 1).toString()} += babuAmount`)
+                babu.style.backgroundColor = 'rgb(148, 182, 210)' // rgb(221, 190, 210) rgb(193, 165, 180)
+                babu.style.borderColor = 'rgb(122, 156, 168)'
+                setTimeout(() => {
+                    babu.innerHTML = 'বাবু'
+                }, 350)
+                document.querySelectorAll('.page').forEach(function(curPage) {
+                    if (curPage.id.replace('p', '') != ba.toString() && curPage.id.replace('p', '') != '1') {
+                        curPage.onclick = () => {
+                            document.querySelectorAll('.page').forEach(function(curPage2) {
+                                curPage2.onclick = () => {}
+                            })
+                            curPage.style.backgroundColor = 'rgb(154, 220, 45)'
+                            curPage.style.borderColor = 'rgb(154, 235, 32)'
+                            setTimeout(() => {
+                                chorDakat == 'চোর' ? choDa = 'cho' : choDa = 'da'
+                                if (curPage.id.replace('p', '') == eval(choDa).toString()) {
+                                    header.innerHTML = 'ঠিক'
+                                    curPage.innerHTML = chorDakat
+                                    score1 += policeAmount
+                                    chorDakat == 'চোর' ? eval(`score${da} += dakatAmount`) : eval(`score${cho} += chorAmount`);
+                                } else {
+                                    header.innerHTML = 'ভুল'
+                                    curPage.innerHTML = playersPapers[curPage.id.replace('p', '') - 1]
+                                    console.log(playersPapers + ' ' + curPage.id.replace('p', '') + ' ' + playersPapers[curPage.id.replace('p', '') - 1])
+                                    if (chorDakat = 'চোর') {eval(`score${cho} += policeAmount`)} else {eval(`score${da} += dakatAmount`); eval(`score${cho} += policeAmount`)} // change for konika version here
+                                }
+                                setTimeout(() => {reset()}, resetDelay)
+                            }, 350)
+                        }
+                    }
+                })
+            }, 350)
+        }, 350)
+    }
+}
+
+function reset() {
+    picked = false
+    chorDakat = chorDakat == 'চোর' ? 'ডাকাত' : 'চোর'
+    document.querySelectorAll('.page').forEach(function(pg) {
+        pg.innerHTML = ''
+        pg.style.backgroundColor = 'rgb(180, 204, 224)'
+        pg.style.borderColor = 'rgb(156, 183, 193)'
+    })
+    header.innerHTML = 'এবার ' + chorDakat
+    playersPapers = playersPapers.sort(() => Math.random() - 0.5)
+    game()
+}
+
+function results() {
+    document.querySelector('.papers').style.display = 'none'
+    document.querySelector('#results').style.display = 'flex'
+    document.querySelector('#s1').innerHTML = document.querySelector('#s1').innerHTML + score1.toString()
+    document.querySelector('#s2').innerHTML = document.querySelector('#s2').innerHTML + score2.toString()
+    document.querySelector('#s3').innerHTML = document.querySelector('#s3').innerHTML + score3.toString()
+    document.querySelector('#s4').innerHTML = document.querySelector('#s4').innerHTML + score4.toString()
+}

@@ -19,4 +19,6 @@ Police chooses who the chor or dakat is (look at the header to know which one). 
 Dakat gets 600 if they was not caught on the dakat choosing turn but if they were, then they get nothing.
 Chor steals what a player would originally get when that player got nothing.
 
+## End
 And you just play until you wanna stop. At that time, press the green-ish button on the button to see the results of player 1-4.
+Whoever gets the highest score wins.

@@ -109,7 +109,7 @@ function game() {
 
 function reset() {
     picked = false
-    chorDakat = chorDakat == 'চোর' ? 'ডাকাত' : 'চোর'
+    chorDakat == 'চোর' ? chorDakat = 'ডাকাত' : chorDakat = 'চোর'
     document.querySelectorAll('.page').forEach(function(pg) {
         pg.innerHTML = ''
         pg.style.backgroundColor = 'rgb(180, 204, 224)'

@@ -1,8 +1,7 @@
 # ChorPolice
-The classic game of চোর পুলিশ that Bangladeshis know.
+The classic game of চোর পুলিশ that Bangladeshis know. (SINGLEPLAYER ONLY)
 
 # How to Play
-In singleplayer I've decided for the player to always get the police
 You are the purple box
 
 পুলিশ = Police,

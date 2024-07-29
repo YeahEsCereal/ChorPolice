@@ -62,14 +62,14 @@ function game() {
                                     pick.innerHTML = chorDakat
                                     header.innerHTML = 'ঠিক'
                                     eval(`score${po.toString()} += policeAmount`)
-                                    if (chorDakat = 'চোর') {eval(`score${da} += dakatAmount`)} else {eval(`score${cho} += chorAmount`)}
+                                    if (chorDakat == 'চোর') {eval(`score${da} += dakatAmount`)} else {eval(`score${cho} += chorAmount`)}
                                     timeouts.push(setTimeout(() => {reset()}, newGameDelay))
                                 }, 350))
                             } else {
                                 timeouts.push(setTimeout(() => {
                                     pick.innerHTML = playersPapers[pick.id.replace('p', '') - 1]
                                     header.innerHTML = 'ভুল'
-                                    if (chorDakat = 'চোর') {eval(`score${cho} += policeAmount`)} else {eval(`score${da} += dakatAmount`); eval(`score${cho} += policeAmount`)} // change for konika version here
+                                    if (chorDakat == 'চোর') {eval(`score${cho} += policeAmount`)} else {eval(`score${da} += dakatAmount`); eval(`score${cho} += policeAmount`)} // change for konika version here
                                     timeouts.push(setTimeout(() => {reset()}, newGameDelay))
                                 }, 350))
                             }
@@ -90,11 +90,11 @@ function game() {
                                         header.innerHTML = 'ঠিক'
                                         curPage.innerHTML = chorDakat
                                         score1 += policeAmount
-                                        chorDakat == 'চোর' ? eval(`score${da} += dakatAmount`) : eval(`score${cho} += chorAmount`);
+                                        chorDakat == 'চোর' ? eval(`score${da} += dakatAmount`) : eval(`score${cho} += chorAmount`)
                                     } else {
                                         header.innerHTML = 'ভুল'
                                         curPage.innerHTML = playersPapers[curPage.id.replace('p', '') - 1]
-                                        if (chorDakat = 'চোর') {eval(`score${cho} += policeAmount`)} else {eval(`score${da} += dakatAmount`); eval(`score${cho} += policeAmount`)} // change for konika version here
+                                        if (chorDakat == 'চোর') {eval(`score${cho} += policeAmount`)} else {eval(`score${da} += dakatAmount`); eval(`score${cho} += policeAmount`)} // change for konika version here
                                     }
                                     timeouts.push(setTimeout(() => {reset()}, newGameDelay))
                                 }, 350))
@@ -109,7 +109,7 @@ function game() {
 
 function reset() {
     picked = false
-    if (chorDakat == 'চোর') {chorDakat = 'ডাকাত'} else {chorDakat = 'চোর'}
+    chorDakat = chorDakat == 'চোর' ? 'ডাকাত' : 'চোর'
     document.querySelectorAll('.page').forEach(function(pg) {
         pg.innerHTML = ''
         pg.style.backgroundColor = 'rgb(180, 204, 224)'

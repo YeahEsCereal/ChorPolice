@@ -2,13 +2,14 @@ picked = false
 chorDakat = 'চোর'
 header = document.querySelector('#header')
 
+timeouts = []
 
 chorAmount = 600
 dakatAmount = 600
 policeAmount = 500
 babuAmount = 700
 
-resetDelay = 2000
+newGameDelay = 2500
 
 score1 = 0
 score2 = 0
@@ -24,10 +25,10 @@ function game() {
         playersPapers = ['চোর', 'পুলিশ', 'ডাকাত', 'বাবু'].sort(() => Math.random() - 0.5)
         picked = true
         b = document.querySelector(`#p1`)
-        setTimeout(() => {
+        timeouts.push(setTimeout(() => {
             b.style.backgroundColor = 'rgb(221, 190, 210)'
             b.style.borderColor = 'rgb(193, 165, 180)'
-            setTimeout(() => {
+            timeouts.push(setTimeout(() => {
                 b.innerHTML = playersPapers[0]
                 ba = (playersPapers.indexOf('বাবু') + 1)
                 po = (playersPapers.indexOf('পুলিশ') + 1)
@@ -38,17 +39,17 @@ function game() {
                     eval(`score${(playersPapers.indexOf('বাবু') + 1).toString()} += babuAmount`)
                     babu.style.backgroundColor = 'rgb(148, 182, 210)'
                     babu.style.borderColor = 'rgb(122, 156, 168)'
-                    setTimeout(() => {
+                    timeouts.push(setTimeout(() => {
                         babu.innerHTML = 'বাবু'
-                    }, 350)
+                    }, 350))
                 } else {score1 += babuAmount}
                 if (b.innerHTML != 'পুলিশ') {
                     police = document.querySelector(`#p${(playersPapers.indexOf('পুলিশ') + 1).toString()}`)
                     police.style.backgroundColor = 'rgb(148, 182, 210)'
                     police.style.borderColor = 'rgb(122, 156, 168)'
-                    setTimeout(() => {
+                    timeouts.push(setTimeout(() => {
                         police.innerHTML = 'পুলিশ'
-                        setTimeout(() => {
+                        timeouts.push(setTimeout(() => {
                             pickn = [1, 2, 3, 4]
                             pickn.splice(pickn.indexOf(ba), 1)
                             pickn.splice(pickn.indexOf(po), 1)
@@ -57,23 +58,23 @@ function game() {
                             pick.style.backgroundColor = 'rgb(154, 220, 45)'
                             pick.style.borderColor = 'rgb(154, 235, 32)'
                             if (playersPapers[pickn - 1] == chorDakat) {
-                                setTimeout(() => {
+                                timeouts.push(setTimeout(() => {
                                     pick.innerHTML = chorDakat
                                     header.innerHTML = 'ঠিক'
-                                    eval(`score${po.toString()} += policeAmount`) // change here for other versions
-                                    if (chorDakat = 'চোর') {eval(`score${da} += dakatAmount`)} else {eval(`score${cho} += chorAmount`)} // change here for other versions
-                                    setTimeout(() => {reset()}, resetDelay)
-                                }, 350)
+                                    eval(`score${po.toString()} += policeAmount`)
+                                    if (chorDakat = 'চোর') {eval(`score${da} += dakatAmount`)} else {eval(`score${cho} += chorAmount`)}
+                                    timeouts.push(setTimeout(() => {reset()}, newGameDelay))
+                                }, 350))
                             } else {
-                                setTimeout(() => {
+                                timeouts.push(setTimeout(() => {
                                     pick.innerHTML = playersPapers[pick.id.replace('p', '') - 1]
                                     header.innerHTML = 'ভুল'
-                                    if (chorDakat = 'চোর') {eval(`score${cho} += policeAmount`)} else {eval(`score${da} += dakatAmount`); eval(`score${cho} += policeAmount`)} // change here for other versions
-                                    setTimeout(() => {reset()}, resetDelay)
-                                }, 350)
+                                    if (chorDakat = 'চোর') {eval(`score${cho} += policeAmount`)} else {eval(`score${da} += dakatAmount`); eval(`score${cho} += policeAmount`)} // change for konika version here
+                                    timeouts.push(setTimeout(() => {reset()}, newGameDelay))
+                                }, 350))
                             }
-                        }, 700)
-                    }, 350)
+                        }, 700))
+                    }, 350))
                 } else {
                     document.querySelectorAll('.page').forEach(function(curPage) {
                         if (curPage.id.replace('p', '') != ba.toString() && curPage.id.replace('p', '') != '1') {
@@ -83,26 +84,26 @@ function game() {
                                 })
                                 curPage.style.backgroundColor = 'rgb(154, 220, 45)'
                                 curPage.style.borderColor = 'rgb(154, 235, 32)'
-                                setTimeout(() => {
+                                timeouts.push(setTimeout(() => {
                                     chorDakat == 'চোর' ? choDa = 'cho' : choDa = 'da'
                                     if (curPage.id.replace('p', '') == eval(choDa).toString()) {
                                         header.innerHTML = 'ঠিক'
                                         curPage.innerHTML = chorDakat
                                         score1 += policeAmount
-                                        chorDakat == 'চোর' ? eval(`score${da} += dakatAmount`) : eval(`score${cho} += chorAmount`); // change here for other versions
+                                        chorDakat == 'চোর' ? eval(`score${da} += dakatAmount`) : eval(`score${cho} += chorAmount`);
                                     } else {
                                         header.innerHTML = 'ভুল'
                                         curPage.innerHTML = playersPapers[curPage.id.replace('p', '') - 1]
-                                        if (chorDakat = 'চোর') {eval(`score${cho} += policeAmount`)} else {eval(`score${da} += dakatAmount`); eval(`score${cho} += policeAmount`)} // change here for other versions
+                                        if (chorDakat = 'চোর') {eval(`score${cho} += policeAmount`)} else {eval(`score${da} += dakatAmount`); eval(`score${cho} += policeAmount`)} // change for konika version here
                                     }
-                                    setTimeout(() => {reset()}, resetDelay)
-                                }, 350)
+                                    timeouts.push(setTimeout(() => {reset()}, newGameDelay))
+                                }, 350))
                             }
                         }
                     })
                 }
-            }, 350)
-        }, 350)
+            }, 350))
+        }, 350))
     }
 }
 
@@ -120,10 +121,16 @@ function reset() {
 }
 
 function results() {
+    for (let i = 1; i <= timeouts.length; i++) {clearInterval(timeouts[i])}
+    tex1 = document.querySelector('#s1').innerHTML
+    tex2 = document.querySelector('#s2').innerHTML
+    tex3 = document.querySelector('#s3').innerHTML
+    tex4 = document.querySelector('#s4').innerHTML
     document.querySelector('.papers').style.display = 'none'
     document.querySelector('#results').style.display = 'flex'
     document.querySelector('#s1').innerHTML = document.querySelector('#s1').innerHTML + score1.toString()
     document.querySelector('#s2').innerHTML = document.querySelector('#s2').innerHTML + score2.toString()
     document.querySelector('#s3').innerHTML = document.querySelector('#s3').innerHTML + score3.toString()
     document.querySelector('#s4').innerHTML = document.querySelector('#s4').innerHTML + score4.toString()
+    for (let i = 1; i <= 4; i++) {if (eval(`score${i}`) == 0) {eval(`document.querySelector('#s${i}').innerHTML = tex${i} + '000'`)}}
 }
